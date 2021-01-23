@@ -77,7 +77,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/home/deepank/Documents/cc_chatroom/src/static";
+/******/ 	__webpack_require__.p = "/home/riti/cloud_chat/src/static";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -90,10 +90,22 @@
 /*!*********************!*\
   !*** ./js/index.js ***!
   \*********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n // POST Test\n\naxios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:5000/test', {\n  test: \"test\"\n}).then(res => {\n  console.log(res.data);\n}).catch(err => {\n  console.log(err);\n}); // GET Test\n\naxios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://127.0.0.1:5000/test').then(res => {\n  console.log(res.data);\n}).catch(err => {\n  console.log(err);\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9qcy9pbmRleC5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL2pzL2luZGV4LmpzP2VlMWMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGF4aW9zIGZyb20gXCJheGlvc1wiXG5cblxuLy8gUE9TVCBUZXN0XG5heGlvcy5wb3N0KCdodHRwOi8vMTI3LjAuMC4xOjUwMDAvdGVzdCcsIHtcbiAgICB0ZXN0OiBcInRlc3RcIlxufSlcbi50aGVuKChyZXMpID0+IHtcbiAgICBjb25zb2xlLmxvZyhyZXMuZGF0YSlcbn0pXG4uY2F0Y2goKGVycikgPT4ge1xuICAgIGNvbnNvbGUubG9nKGVycilcbn0pXG5cblxuLy8gR0VUIFRlc3RcbmF4aW9zLmdldCgnaHR0cDovLzEyNy4wLjAuMTo1MDAwL3Rlc3QnKVxuLnRoZW4oKHJlcykgPT4ge1xuICAgIGNvbnNvbGUubG9nKHJlcy5kYXRhKVxufSlcbi5jYXRjaCgoZXJyKSA9PiB7XG4gICAgY29uc29sZS5sb2coZXJyKVxufSlcbiJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUdBO0FBQ0E7QUFEQTtBQUlBO0FBQ0E7QUFFQTtBQUNBO0FBQ0E7QUFHQTtBQUVBO0FBQ0E7QUFFQTtBQUNBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./js/index.js\n");
+
+/***/ }),
+
+/***/ "./node_modules/axios/index.js":
+/*!*************************************!*\
+  !*** ./node_modules/axios/index.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9qcy9pbmRleC5qcy5qcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./js/index.js\n");
+eval("throw new Error(\"Module build failed: Error: ENOENT: no such file or directory, open '/home/riti/cloud_chat/src/templates/node_modules/axios/index.js'\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9ub2RlX21vZHVsZXMvYXhpb3MvaW5kZXguanMuanMiLCJzb3VyY2VzIjpbXSwibWFwcGluZ3MiOiIiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./node_modules/axios/index.js\n");
 
 /***/ })
 

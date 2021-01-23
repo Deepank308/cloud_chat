@@ -1,5 +1,5 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS, cross_origin
+from flask import Flask
+from flask_cors import CORS
 
 
 app = Flask(__name__,
@@ -10,7 +10,8 @@ CORS(app)
 app.config['CORS_HEADER'] = 'Content-Type'
 
 
-from .hello.views import hello_blueprint
+from .hello.views import hello_blueprint, test_blueprint
 
 # register the blueprints
 app.register_blueprint(hello_blueprint)
+app.register_blueprint(test_blueprint)
