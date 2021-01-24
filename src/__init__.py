@@ -10,8 +10,10 @@ CORS(app)
 app.config['CORS_HEADER'] = 'Content-Type'
 
 
-from .hello.views import hello_blueprint, test_blueprint
+from .hello.views import hello_blueprint, test_blueprint, login_blueprint, chatroom_blueprint
 
 # register the blueprints
 app.register_blueprint(hello_blueprint)
 app.register_blueprint(test_blueprint)
+app.register_blueprint(login_blueprint)
+app.register_blueprint(chatroom_blueprint)

@@ -1,4 +1,4 @@
-# Cloud Chatroom
+    # Cloud Chatroom
 
 ## About
 
@@ -20,7 +20,7 @@ For this project, I used : **npm v6.14.10**, **pip v20.3.3**, **python v3.7**
 
 ### Running
 
-1. In terminal : `export FLASK_DEBUG=1 && FLASK_ENV=development`
+1. In terminal : `export FLASK_DEBUG=1 && export FLASK_ENV=development`
 2. Run `flask run` in the root dir
 3. In the templates directory, start the npm watcher to build the front end code with the command `npm run watch`
 4. If all is working correctly, you will be given an address [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
