@@ -1,65 +1,40 @@
 import axios from "axios"
 
+/*
+    Join Server
+*/
 
-// POST Test
-axios.post('http://127.0.0.1:5000/test', {
-    test: "test"
-})
-.then((res) => {
-    console.log(res.data)
-})
-.catch((err) => {
-    console.log(err)
-})
+document.getElementById('join_server').addEventListener('click', function (event) {
+    console.log('Clicked join server')
 
+    var loginForm = document.getElementById('login_form');
+    var username = loginForm.elements['username'].value
+    var password = loginForm.elements['password'].value
+    var serverId = '1010'
 
-// GET Test
-axios.get('http://127.0.0.1:5000/test')
-.then((res) => {
-    console.log(res.data)
-})
-.catch((err) => {
-    console.log(err)
-})
+    /*
+        To Do :  Check if the fields are empty
+    */
+    axios.get('http://127.0.0.1:5000/chatroom', {
+        params: {
+            username: username,
+            password: password,
+            serverId: serverId
+        }
+    })
+        .then((res) => {
+            /*
+                This will take the user to the chatroom for which the serverId will be provided by the user
+                Currently serverId has been set to default as '1010'
 
-// POST Login
-axios.post('http://127.0.0.1:5000/login', {
-    test: "login"
-})
-.then((res) => {
-    console.log(res.data)
-})
-.catch((err) => {
-    console.log(err)
-})
-
-
-// GET Login
-axios.get('http://127.0.0.1:5000/login')
-.then((res) =>{
-    console.log(res.data)
-})
-.catch((err) => {
-    console.log(err)
-})
-
-
-// POST Chat Room
-axios.post('http://127.0.0.1:5000/chatroom', {
-    test: "login"
-})
-.then((res) => {
-    console.log(res.data)
-})
-.catch((err) => {
-    console.log(err)
-})
-
-// GET Chat Room
-axios.get('http://127.0.0.1:5000/chatroom')
-.then((res) =>{
-    console.log(res.data)
-})
-.catch((err) => {
-    console.log(err)
-})
+                To Do : Authentication of username and password
+                To Do : Autharization of serverId
+            */
+            loginForm.action = `/chatroom/${serverId}`;
+            console.log(serverId);
+            loginForm.submit();
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+});

@@ -1,28 +1,31 @@
-from flask import render_template, Blueprint, jsonify, request
+from flask import render_template, Blueprint, jsonify, request, redirect, url_for
 from flask_cors import cross_origin
 
-hello_blueprint = Blueprint('hello',__name__)
-test_blueprint = Blueprint('test', __name__)
+hello_blueprint = Blueprint('hello', __name__)
 login_blueprint = Blueprint('login', __name__)
 chatroom_blueprint = Blueprint('chatroom', __name__)
 
+'''
+    Home page
+'''
 @hello_blueprint.route('/')
-@hello_blueprint.route('/hello')
-def index():
-	return render_template('index.html')
-	
-@test_blueprint.route("/test", methods=["GET", "POST"])
-@cross_origin()
-def test():
-    return jsonify({"success": True, "type": request.method})
+@hello_blueprint.route('/<serverId>')
+def index(serverId=None):
+    '''
+        To Do : Check if serverId is valid
+    '''
+    print("Index Called", serverId)
+    return render_template('index.html')
 
-@login_blueprint.route('/login', methods=["GET", "POST"])
+'''
+    Chat Room
+'''
+@chatroom_blueprint.route('/chatroom/<serverId>', methods=["GET", "POST"])
 @cross_origin()
-def login():
-    return render_template('login.html')
-
-
-@chatroom_blueprint.route('/chatroom', methods=["GET", "POST"])
-@cross_origin()
-def chatroom():
+def chatroom(serverId):
+    '''
+        To Do : Check if serverId, username, passwords are valid
+    '''
+    print("Chatroom Called")
+    print(request, serverId)
     return render_template('chatroom.html')
