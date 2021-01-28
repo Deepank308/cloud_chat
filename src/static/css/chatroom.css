@@ -5,7 +5,6 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: rgb(231, 216, 228);
 }
-/* -------------- room.ejs -------------- */
 
 h1 {
     text-align: center;
@@ -52,7 +51,8 @@ button {
     overflow: auto;
 }
 
-#output, #feedback {
+#output,
+#feedback {
     margin-left: 10px;
 }
 

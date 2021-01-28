@@ -1,8 +1,9 @@
 from flask import render_template, Blueprint, jsonify, request, redirect, url_for
 from flask_cors import cross_origin
+import json
 
 hello_blueprint = Blueprint('hello', __name__)
-login_blueprint = Blueprint('login', __name__)
+create_server_blueprint = Blueprint('createServer', __name__)
 chatroom_blueprint = Blueprint('chatroom', __name__)
 
 '''
@@ -34,3 +35,13 @@ def chatroom(serverId):
     print("Chatroom Called")
     print(request, serverId)
     return render_template('chatroom.html')
+
+
+@create_server_blueprint.route('/createServer')
+@cross_origin()
+def createServer():
+    print('Create server called')
+    print(request)
+    print(request.args)
+    serverId = '1001'
+    return jsonify({'serverId': serverId, 'status': True})
