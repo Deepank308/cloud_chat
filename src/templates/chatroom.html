@@ -1,9 +1,29 @@
 {% extends "layout.html" %}
 
+{% block css %}
+<link rel="stylesheet" href="/static/css/chatroom.css">
+{% endblock %}
+
 {% block title %}
 Chatroom
 {% endblock %}
 
 {% block main %}
-<div id="content">"Welcome to Chat Room"</div>
+<h1 class="room-message"></h1>
+<div class="window" style="background-color: rgb(231, 216, 228)">
+    <div class="chat-message">
+        <div id="output"></div>
+        <div id="feedback"></div>
+    </div>
+    <div class='fields'>
+        <input type="text" id="message" placeholder="Enter message">
+        <button id="send">Send</button>
+    </div>
+</div>
+<div class="online">
+    <p class="users-online">Users Online</p>
+    <div class="users">
+    </div>
+</div>
+<script type="text/javascript" src="/static/index.bundle.js"></script>
 {% endblock %}

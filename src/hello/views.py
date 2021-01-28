@@ -8,6 +8,8 @@ chatroom_blueprint = Blueprint('chatroom', __name__)
 '''
     Home page
 '''
+
+
 @hello_blueprint.route('/')
 @hello_blueprint.route('/<serverId>')
 def index(serverId=None):
@@ -17,9 +19,12 @@ def index(serverId=None):
     print("Index Called", serverId)
     return render_template('index.html')
 
+
 '''
     Chat Room
 '''
+
+
 @chatroom_blueprint.route('/chatroom/<serverId>', methods=["GET", "POST"])
 @cross_origin()
 def chatroom(serverId):

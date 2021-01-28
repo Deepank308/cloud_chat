@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 
+{% block css %}
+<link rel="stylesheet" href="/static/css/main.css" type="text/css">
+{% endblock %}
+
 {% block title %}
 Discord App
 {% endblock %}
@@ -10,8 +14,11 @@ Discord App
 
 		<!-- Login Form -->
 		<form id="login_form">
+			<!-- form fields -->
 			<input type="text" id="username" class="fadeIn first" name="username" placeholder="email-id">
 			<input type="text" id="password" class="fadeIn second" name="pass" placeholder="password">
+
+			<!-- buttons -->
 			<input id="join_server" type="button" class="fadeIn third" value="Join Server">
 			<input id="create_server" type="button" class="fadeIn fourth" value="Create Server">
 		</form>
