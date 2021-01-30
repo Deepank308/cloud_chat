@@ -6,6 +6,7 @@ const config = {
 	devtool: 'eval-source-map',
 	entry: {
 		index: __dirname + '/js/index.js',
+		chatroom: __dirname + '/js/chatroom.js'
 	},
 	output: {
 		path: resolve('../static'),

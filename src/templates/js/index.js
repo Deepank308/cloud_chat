@@ -1,80 +1,107 @@
-import axios from "axios"
+import axios from "axios";
 
-const _baseUrl = 'http://localhost:1234/';
-const PORT = process.env.PORT;
+/* Export to a new constants.js file */
+const PORT = process.env.PORT || '5000';
+const _baseUrl = `http://localhost:${PORT}`;
+const _chatroomUrl = `${_baseUrl}/chatroom`;
+const _apiBase = `${_baseUrl}/api`;
+
 
 /**
- * Join Server  
+ * Join Server Event Listnser
+ * 
  */
-document.getElementById('join_server').addEventListener('click', function(event) {
-    console.log('Clicked join server');
+document.getElementById('join_server').addEventListener('click', function (event) {
+	console.log('Clicked Join server');
 
-    var loginForm = document.getElementById('login_form');
-    var username = loginForm.elements['username'].value;
-    var password = loginForm.elements['password'].value;
-    var serverId = '1010';
+	var loginForm = document.getElementById('login_form');
+	var username = loginForm.elements['username'].value;
+	var password = loginForm.elements['password'].value;
 
-    // To Do :  Check if the fields are empty
+	if (username === '' || password === '') {
+		console.log('Error: Username or password empty!');
+		return;
+	}
 
-    /*
-        This will take the user to the chatroom for which the serverId will be provided by the user
-        Currently serverId has been set to default as '1010'
+	/**started here */
+	var params = { username: username, password: password };
+	axios.post(`${_apiBase}/joinServer`, params)
+		.then((res) => {
+			let status = res.data.status;
+			console.log(`Status :${status}`);
+			if (!status) {
+				return;
+			}
 
-        To Do : Authentication of username and password
-        To Do : Authorization of serverId
-    */
-    loginForm.action = `/chatroom/${serverId}`;
-    console.log(serverId);
-    loginForm.submit();
+			/* If server ID in the URL, redirect to the chat page */
+			if (/[0-9]+/.test(location.search)) {
+				let serverId = /[0-9]+/.exec(location.search);
+				location.href = `${_chatroomUrl}/${serverId}`;
+			} else {
+				document.getElementById('join_server_invite_container').style.display = 'block';
+				document.getElementById('join_server_invite').value = "";
+			}
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 });
 
+
 /**
- * Create Server
+ * Create Server Event Listener
+ * 
  */
-document.getElementById('create_server').addEventListener('click', function(event) {
-    console.log('Clicked Create server');
+document.getElementById('create_server').addEventListener('click', function (event) {
+	console.log('Clicked Create server');
 
-    var loginForm = document.getElementById('login_form');
-    var username = loginForm.elements['username'].value;
-    var password = loginForm.elements['password'].value;
+	var loginForm = document.getElementById('login_form');
+	var username = loginForm.elements['username'].value;
+	var password = loginForm.elements['password'].value;
 
-    var params = { username: username, password: password };
+	if (username === '' || password === '') {
+		console.log('Error: Username or password empty!');
+		return;
+	}
 
-    axios.get(`${_baseUrl}createServer`, {
-            params: params
-        })
-        .then((res) => {
-            let serverId = res.data.serverId;
-            let status = res.data.status;
-            console.log(`Status: ${status}`);
+	var params = { username: username, password: password };
+	axios.post(`${_apiBase}/createServer`, params)
+		.then((res) => {
+			let status = res.data.status;
+			console.log(`Status: ${status}`);
+			if (!status) {
+				return;
+			}
 
-            document.getElementById('invite-container').style.display = 'block';
-            let inviteInput = document.getElementById('invite');
-            inviteInput.value = `${_baseUrl}chatroom/${serverId}`;
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-    // To Do :  Check if the fields are empty
-
-    /*
-        This will take the user to the chatroom for which the serverId will be provided by the user
-        Currently serverId has been set to default as '1010'
-
-        To Do : Authentication of username and password
-        To Do : Authorization of serverId
-    */
+			let serverId = res.data.serverId;
+			document.getElementById('invite-container').style.display = 'block';
+			document.getElementById('invite').value = `${_chatroomUrl}/${serverId}`;
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 });
 
+
 /**
- * Chat Button
+ * Chat Button For Create Server
+ * 
  */
 document.getElementById('gotoChatroomButton').addEventListener('click', () => {
-    console.log('Chat clicked')
+	console.log('Enter Chat clicked');
+	location.href = document.getElementById('invite').value;
+});
 
-    var inviteForm = document.getElementById('invite-input');
-    let chatroomURL = inviteForm.elements['invite'].value;
-    inviteForm.action = chatroomURL;
-    inviteForm.submit();
+
+/**
+ * Chat Button For Join Server
+ * 
+ */
+document.getElementById('join_server_gotoChatroomButton').addEventListener('click', () => {
+	console.log('Enter Chat clicked');
+
+	let serverId = document.getElementById('join_server_invite').value;
+	if (serverId !== '') {
+		location.href = `${_chatroomUrl}/${serverId}`;
+	}
 });
