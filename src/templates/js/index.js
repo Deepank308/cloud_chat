@@ -1,118 +1,107 @@
 import axios from "axios";
 
-const _baseUrl = 'http://localhost:1234/';
-const PORT = process.env.PORT;
+/* Export to a new constants.js file */
+const PORT = process.env.PORT || '5000';
+const _baseUrl = `http://localhost:${PORT}`;
+const _chatroomUrl = `${_baseUrl}/chatroom`;
+const _apiBase = `${_baseUrl}/api`;
+
 
 /**
- * Join Server  
+ * Join Server Event Listnser
+ * 
  */
-document.getElementById('join_server').addEventListener('click', function(event) {
-    console.log('Clicked join server');
+document.getElementById('join_server').addEventListener('click', function (event) {
+	console.log('Clicked Join server');
 
-    var loginForm = document.getElementById('login_form');
-    var username = loginForm.elements['username'].value;
-    var password = loginForm.elements['password'].value;
-    var serverId = '1010';
+	var loginForm = document.getElementById('login_form');
+	var username = loginForm.elements['username'].value;
+	var password = loginForm.elements['password'].value;
 
-    /**started here */
-    var params = { username: username, password: password };
+	if (username === '' || password === '') {
+		console.log('Error: Username or password empty!');
+		return;
+	}
 
-    axios.get(`${_baseUrl}joinServer`, {
-            params: params
-        })
-        .then((res) => {
-            console.log(`Status :${res.data.status}`);
-            document.getElementById('join_server_invite_container').style.display = 'block';
-            document.getElementById('join_server_invite').value = "";
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+	/**started here */
+	var params = { username: username, password: password };
+	axios.post(`${_apiBase}/joinServer`, params)
+		.then((res) => {
+			let status = res.data.status;
+			console.log(`Status :${status}`);
+			if (!status) {
+				return;
+			}
 
-    // To Do :  Check if the fields are empty
-
-    /*
-        This will take the user to the chatroom for which the serverId will be provided by the user
-        Currently serverId has been set to default as '1010'
-
-        To Do : Authentication of username and password
-        To Do : Authorization of serverId
-    */
-    // loginForm.action = `/chatroom/${serverId}`;
-    // console.log(serverId);
-    // loginForm.submit();
+			/* If server ID in the URL, redirect to the chat page */
+			if (/[0-9]+/.test(location.search)) {
+				let serverId = /[0-9]+/.exec(location.search);
+				location.href = `${_chatroomUrl}/${serverId}`;
+			} else {
+				document.getElementById('join_server_invite_container').style.display = 'block';
+				document.getElementById('join_server_invite').value = "";
+			}
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 });
+
 
 /**
- * Create Server
+ * Create Server Event Listener
+ * 
  */
-document.getElementById('create_server').addEventListener('click', function(event) {
-    console.log('Clicked Create server');
+document.getElementById('create_server').addEventListener('click', function (event) {
+	console.log('Clicked Create server');
 
-    var loginForm = document.getElementById('login_form');
-    var username = loginForm.elements['username'].value;
-    var password = loginForm.elements['password'].value;
+	var loginForm = document.getElementById('login_form');
+	var username = loginForm.elements['username'].value;
+	var password = loginForm.elements['password'].value;
 
-    if (username === '' || password === '') {
-        console.log('Error: Username or password empty!');
-        return;
-    }
+	if (username === '' || password === '') {
+		console.log('Error: Username or password empty!');
+		return;
+	}
 
-    localStorage.setItem('username', username);
-    localStorage.setItem('password', password);
+	var params = { username: username, password: password };
+	axios.post(`${_apiBase}/createServer`, params)
+		.then((res) => {
+			let status = res.data.status;
+			console.log(`Status: ${status}`);
+			if (!status) {
+				return;
+			}
 
-    var params = { username: username, password: password };
-
-    axios.get(`${_baseUrl}createServer`, {
-            params: params
-        })
-        .then((res) => {
-            let serverId = res.data.serverId;
-            localStorage.setItem('serverId', serverId);
-
-            let status = res.data.status;
-            console.log(`Status: ${status}`);
-
-            document.getElementById('invite-container').style.display = 'block';
-            let inviteInput = document.getElementById('invite');
-            inviteInput.value = `${_baseUrl}chatroom/${serverId}`;
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-    // To Do :  Check if the fields are empty
-
-    /*
-        This will take the user to the chatroom for which the serverId will be provided by the user
-        Currently serverId has been set to default as '1010'
-
-        To Do : Authentication of username and password
-        To Do : Authorization of serverId
-    */
+			let serverId = res.data.serverId;
+			document.getElementById('invite-container').style.display = 'block';
+			document.getElementById('invite').value = `${_chatroomUrl}/${serverId}`;
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 });
+
 
 /**
  * Chat Button For Create Server
+ * 
  */
 document.getElementById('gotoChatroomButton').addEventListener('click', () => {
-    console.log('Create Server Chat clicked');  
-    
-    var inviteForm = document.getElementById('invite-input');
-    var inviteDiv = document.getElementById('invite');
-    let chatroomURL = inviteDiv.value;
-    inviteForm.action = chatroomURL;
-    inviteForm.submit();
+	console.log('Enter Chat clicked');
+	location.href = document.getElementById('invite').value;
 });
+
 
 /**
  * Chat Button For Join Server
+ * 
  */
 document.getElementById('join_server_gotoChatroomButton').addEventListener('click', () => {
-    console.log('Join Server chat clicked');
+	console.log('Enter Chat clicked');
 
-    var inviteForm = document.getElementById('join_server_invite_input');
-    let chatroomURL = document.getElementById('join_server_invite').value;
-    inviteForm.action = chatroomURL;
-    inviteForm.submit();
+	let serverId = document.getElementById('join_server_invite').value;
+	if (serverId !== '') {
+		location.href = `${_chatroomUrl}/${serverId}`;
+	}
 });
