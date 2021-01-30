@@ -210,20 +210,20 @@ input[type=password]:placeholder {
     from {
         opacity: 0;
     }
-    to opacity:1;
-}
-
-
-}
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    
     to {
         opacity: 1;
     }
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .fadeIn {
     opacity: 0;
     -webkit-animation: fadeIn ease-in 1;
@@ -236,28 +236,34 @@ input[type=password]:placeholder {
     -moz-animation-duration: 1s;
     animation-duration: 1s;
 }
+
 .fadeIn.first {
     -webkit-animation-delay: 0.4s;
     -moz-animation-delay: 0.4s;
     animation-delay: 0.4s;
 }
+
 .fadeIn.second {
     -webkit-animation-delay: 0.6s;
     -moz-animation-delay: 0.6s;
     animation-delay: 0.6s;
 }
+
 .fadeIn.third {
     -webkit-animation-delay: 0.8s;
     -moz-animation-delay: 0.8s;
     animation-delay: 0.8s;
 }
+
 .fadeIn.fourth {
     -webkit-animation-delay: 1s;
     -moz-animation-delay: 1s;
     animation-delay: 1s;
 }
 
+
 /* Simple CSS3 Fade-in Animation */
+
 .underlineHover:after {
     display: block;
     left: 0;
@@ -268,32 +274,41 @@ input[type=password]:placeholder {
     content: "";
     transition: width 0.2s;
 }
+
 .underlineHover:hover {
     color: #0d0d0d;
 }
+
 .underlineHover:hover:after {
     width: 100%;
 }
 
+
 /* OTHERS */
+
 *:focus {
     outline: none;
 }
+
 #icon {
     width: 60%;
 }
 
+
 /* CHAT ROOM */
+
 .mytext {
     border: 0;
     padding: 10px;
     background: whitesmoke;
 }
+
 .text {
     width: 75%;
     display: flex;
     flex-direction: column;
 }
+
 .text>p:first-of-type {
     width: 100%;
     margin-top: 0;
@@ -301,6 +316,7 @@ input[type=password]:placeholder {
     line-height: 13px;
     font-size: 12px;
 }
+
 .text>p:last-of-type {
     width: 100%;
     text-align: right;
@@ -308,14 +324,17 @@ input[type=password]:placeholder {
     margin-bottom: -7px;
     margin-top: auto;
 }
+
 .text-l {
     float: left;
     padding-right: 10px;
 }
+
 .text-r {
     float: right;
     padding-left: 10px;
 }
+
 .avatar {
     display: flex;
     justify-content: center;
@@ -324,6 +343,7 @@ input[type=password]:placeholder {
     float: left;
     padding-right: 10px;
 }
+
 .macro {
     margin-top: 5px;
     width: 85%;
@@ -331,36 +351,43 @@ input[type=password]:placeholder {
     padding: 5px;
     display: flex;
 }
+
 .msj-rta {
     float: right;
     background: whitesmoke;
 }
+
 .msj {
     float: left;
     background: white;
 }
+
 .frame {
     background: #e0e0de;
     height: 450px;
     overflow: hidden;
     padding: 0;
 }
+
 .frame>div:last-of-type {
     position: absolute;
     bottom: 0;
     width: 100%;
     display: flex;
 }
+
 body>div>div>div:nth-child(2)>span {
     background: whitesmoke;
     padding: 10px;
     font-size: 21px;
     border-radius: 50%;
 }
+
 body>div>div>div.msj-rta.macro {
     margin: auto;
     margin-left: 1%;
 }
+
 ul {
     width: 100%;
     list-style-type: none;
@@ -372,6 +399,7 @@ ul {
     top: 0;
     overflow-y: scroll;
 }
+
 .msj:before {
     width: 0;
     height: 0;
@@ -383,6 +411,7 @@ ul {
     border-width: 0 13px 13px 0;
     border-color: transparent #ffffff transparent transparent;
 }
+
 .msj-rta:after {
     width: 0;
     height: 0;
@@ -394,65 +423,61 @@ ul {
     border-width: 13px 13px 0 0;
     border-color: whitesmoke transparent transparent transparent;
 }
+
 input:focus {
     outline: none;
 }
+
 ::-webkit-input-placeholder {
     /* Chrome/Opera/Safari */
-    
-    color: #d4d4d4;
-}
-::-moz-placeholder {
-    /* Firefox 19+ */
-    
-    color: #d4d4d4;
-}
-:-ms-input-placeholder {
-    /* IE 10+ */
-    
-    color: #d4d4d4;
-}
-:-moz-placeholder {
-    /* Firefox 18- */
-    
     color: #d4d4d4;
 }
 
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #d4d4d4;
+}
+
+:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #d4d4d4;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: #d4d4d4;
+}
+
+
 /* The Modal (background) */
+
 .modal {
     display: none;
     /* Hidden by default */
-    
     position: fixed;
     /* Stay in place */
-    
     z-index: 1;
     /* Sit on top */
-    
     left: 0;
     top: 0;
     width: 100%;
     /* Full width */
-    
     height: 100%;
     /* Full height */
-    
     overflow: auto;
     /* Enable scroll if needed */
-    
     background-color: rgb(0, 0, 0);
     /* Fallback color */
-    
     background-color: rgba(0, 0, 0, 0.4);
     /* Black w/ opacity */
-    
     padding-top: 60px;
 }
 
+
 /* The Close Button */
+
 .close {
     /* Position it in the top right corner outside of the modal */
-    
     position: absolute;
     right: 25px;
     top: 0;
@@ -461,36 +486,41 @@ input:focus {
     font-weight: bold;
 }
 
+
 /* Close button on hover */
+
 .close:hover,
 .close:focus {
     color: red;
     cursor: pointer;
 }
 
+
 /* Add Zoom Animation */
+
 .animate {
     -webkit-animation: animatezoom 0.6s;
     animation: animatezoom 0.6s
 }
+
 @-webkit-keyframes animatezoom {
     from {
         -webkit-transform: scale(0)
     }
-    
     to {
         -webkit-transform: scale(1)
     }
 }
+
 @keyframes animatezoom {
     from {
         transform: scale(0)
     }
-    
     to {
         transform: scale(1)
     }
 }
+
 #invite {
     flex: 1 1 auto;
     height: 32px;
@@ -499,11 +529,13 @@ input:focus {
     line-height: 32px;
     text-align: center;
 }
+
 #invite,
 .invite-overlay {
     font-size: 18px;
     background-color: #fff;
 }
+
 .invite-container {
     width: 100%;
     flex-direction: column;
@@ -512,17 +544,20 @@ input:focus {
     display: flex;
     box-sizing: border-box;
 }
+
 .title {
     text-align: center;
     font-size: 35px;
     color: black;
 }
+
 .invite-bar {
     display: flex;
     width: 100%;
     align-items: center;
     box-sizing: border-box;
 }
+
 .invite-input {
     position: relative;
     display: flex;

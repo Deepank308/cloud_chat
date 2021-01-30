@@ -3,6 +3,7 @@ from flask_cors import cross_origin
 import json
 
 hello_blueprint = Blueprint('hello', __name__)
+join_server_blueprint = Blueprint('joinServer', __name__)
 create_server_blueprint = Blueprint('createServer', __name__)
 chatroom_blueprint = Blueprint('chatroom', __name__)
 
@@ -41,6 +42,15 @@ def chatroom(serverId):
 @cross_origin()
 def createServer():
     print('Create server called')
+    print(request)
+    print(request.args)
+    serverId = '1001'
+    return jsonify({'serverId': serverId, 'status': True})
+
+@join_server_blueprint.route('/joinServer')
+@cross_origin()
+def joinServer():
+    print('Join Server called')
     print(request)
     print(request.args)
     serverId = '1001'

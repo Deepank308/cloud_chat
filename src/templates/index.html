@@ -5,7 +5,7 @@
         <div id="formContent">
 
             <!-- Login Form -->
-            <form id="login_form">
+            <form id="login_form" method='POST'>
                 <!-- form fields -->
                 <input type="text" id="username" class="fadeIn first" name="username" placeholder="email-id">
                 <input type="password" id="password" class="fadeIn second" name="pass" placeholder="password">
@@ -18,16 +18,27 @@
         </div>
     </div>
 
+    <!-- For Create Server -->
     <div class="wrapper" style="display: none;" id='invite-container'>
         <div class="title">Invite your friends!</div>
         <div class="invite-bar">
-            <form class="invite-input" id='invite-input'>
+            <div class="invite-input" id='invite-input'>
                 <input id="invite" type="text" readonly=""></input>
-                <input type="button" class="button btn btn-warning" id="gotoChatroomButton" value='Chat!'>
-            </form>
+                <input type="button" class="button btn btn-warning" id="gotoChatroomButton" value='Chat! '>
+            </div>
         </div>
     </div>
-</div>
-<script type="text/javascript" src="/static/index.bundle.js"></script>
 
-{% endblock %}
+    <!-- For Join Server -->
+    <div class="wrapper" style="display: none;" id='join_server_invite_container'>
+        <div class="title">Enter the link!</div>
+        <div class="invite-bar">
+            <div class="invite-input" id='join_server_invite_input'>
+                <input id="join_server_invite" type="text"></input>
+                <input type="button" class="button btn btn-warning" id="join_server_gotoChatroomButton" value='Chat! '>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/static/index.bundle.js"></script>
+
+    {% endblock %}
