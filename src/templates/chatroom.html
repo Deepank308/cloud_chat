@@ -9,20 +9,27 @@ Chatroom
 {% endblock %}
 
 {% block main %}
-<h1 class="room-message"></h1>
-<div class="window" style="background-color: rgb(231, 216, 228)">
-	<div class="chat-message">
-		<div id="output"></div>
-		<div id="feedback"></div>
+<div class="wrapper chatroom-container">
+	<div class="wrapper users-online-container">
+		<div class="online">
+			<p class="users-online">Users Online</p>
+			<hr>
+			<div class="users">
+			</div>
+		</div>
 	</div>
-	<div class='fields'>
-		<input type="text" id="message" placeholder="Enter message">
-		<button id="send">Send</button>
-	</div>
-</div>
-<div class="online">
-	<p class="users-online">Users Online</p>
-	<div class="users">
+	<div class="wrapper chat-content">
+		<h1 class="room-message">My Room</h1>
+		<div class="wrapper window">
+			<div class="chat-message">
+				<div id="output"></div>
+				<div id="feedback"></div>
+			</div>
+			<div class='wrapper fields'>
+				<input type="text" id="message" placeholder="Enter message">
+				<button id="send">Send</button>
+			</div>
+		</div>
 	</div>
 </div>
 <script type="text/javascript" src="/static/chatroom.bundle.js"></script>

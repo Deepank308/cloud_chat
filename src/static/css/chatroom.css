@@ -1,9 +1,59 @@
 * {
     margin: 0;
+    position: relative;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: rgb(231, 216, 228);
+    font-family: system-ui, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 15px;
+    color: rgb(0 0 0 / 41%);
+    font-family: inherit;
+}
+
+hr {
+    border-top: 1px solid #adb5bd;
+}
+
+html {
+    background-color: #ffffff;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+.wrapper {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 1%;
+}
+
+.chatroom-container {
+    padding: 0% 13%;
+    background-color: #ffffff;
+}
+
+.chat-content {
+    float: right;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.users-online-container {
+    border-radius: 10px;
+    width: 30%;
+    float: left;
 }
 
 h1 {
@@ -12,43 +62,91 @@ h1 {
 }
 
 input {
-    width: 100%;
-    height: 40px;
-    text-indent: 10px;
+    border: 0px;
+    border-radius: inherit;
+    font-size: 130%;
+    width: 85%;
+    height: 100%;
+    text-indent: 1%;
+    background: #f6f6f6;
+}
+
+input[type=text]:focus {
+    background-color: #fff;
+    border: 1px solid #d6d6d6;
+}
+
+input[type=text]:placeholder {
+    color: #cccccc;
 }
 
 button {
-    width: 100%;
+    outline: none;
+    width: 15%;
     height: 50px;
-    background-color: #2f82e0;
+    background-color: #56baed;
+    border-radius: inherit;
     color: white;
     font-size: larger;
-    font-weight: bold;
+    font-weight: normal;
     outline: none;
     cursor: pointer;
     border: none;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #39ace7;
+    outline: none;
+}
+
+button:active {
+    outline: none;
+    -moz-transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
+}
+
+*:focus, *:active {
+    outline: none;
 }
 
 .fields {
+    display: flex;
     width: 100%;
+    height: auto;
+    border-radius: inherit;
+    flex-direction: row;
+    align-items: flex-end;
+    padding: inherit;
 }
 
 .window {
+    padding: 0%;
+    border-radius: inherit;
     margin: auto;
-    margin-top: 20px;
-    width: 700px;
-    height: 500px;
-    border: 2px solid #c2c6b6;
+    margin-top: auto;
+    width: inherit;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-content: space-between;
 }
 
 .chat-message {
+    background-color: #ffffff;
+    border-radius: inherit;
     display: block;
     width: 100%;
     height: 100%;
     overflow: auto;
+    box-shadow: 0 30px 60px 0 rgb(0 0 0 / 30%);
 }
 
 #output,
@@ -57,28 +155,33 @@ button {
 }
 
 .online {
-    height: 100vh;
-    width: 300px;
-    position: absolute;
+    padding: inherit;
+    height: 100%;
+    width: 100%;
+    position: relative;
     left: 0px;
     top: 0px;
-    background-color: rgb(110, 103, 103);
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 30px 60px 0 rgb(0 0 0 / 30%);
 }
 
 .online .users-online {
-    background-color: rgb(110, 103, 103);
-    color: white;
+    background-color: inherit;
+    color: #008017a3;
     text-align: center;
-    font-size: 40px;
-    font-weight: bolder;
+    font-size: 30px;
+    font-weight: normal;
 }
 
 .users {
-    margin-left: 40px;
-    margin-top: 50px;
+    margin-left: auto;
+    margin-top: auto;
 }
 
 .users p {
-    background-color: rgb(110, 103, 103);
-    color: white;
+    background-color: transparent;
+    color: #212529ba;
+    text-align: center;
+    font-size: 25px;
 }

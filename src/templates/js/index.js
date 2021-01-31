@@ -1,8 +1,10 @@
 import axios from "axios";
 
 /* Export to a new constants.js file */
-const PORT = process.env.PORT || '5000';
-const _baseUrl = `http://localhost:${PORT}`;
+const PORT = '5000';
+const HOST = '127.0.0.1';
+const _baseUrl = `http://${HOST}:${PORT}`;
+// const _baseUrl = 'http://c975670c3424.ngrok.io';
 const _chatroomUrl = `${_baseUrl}/chatroom`;
 const _apiBase = `${_baseUrl}/api`;
 
