@@ -19,7 +19,10 @@ Chatroom
 		</div>
 	</div>
 	<div class="wrapper chat-content">
-		<h1 class="room-message">My Room</h1>
+		<div class="wrapper chat-header">
+			<h1 class="room-message">My Room</h1>
+			<button id="logout_btn">Logout</button>
+		</div>
 		<div class="wrapper window">
 			<div class="chat-message">
 				<div id="output"></div>
@@ -31,6 +34,7 @@ Chatroom
 			</div>
 		</div>
 	</div>
+	
 </div>
 <script type="text/javascript" src="/static/chatroom.bundle.js"></script>
 {% endblock %}

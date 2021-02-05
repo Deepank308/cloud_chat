@@ -13,7 +13,10 @@ import json
 service_blueprint = Blueprint("service", __name__)
 api_blueprint = Blueprint("api", __name__, url_prefix="/api")
 
-SERVER_ID = "1001"
+# Local Database
+SERVER_IDS = [1000]
+MAX_SERVERID = 1005
+ADMIN_SERVERID = {}
 
 # user session data
 SESSION_ID_KEY = "username"
@@ -31,7 +34,18 @@ def auth_login(username, password):
     return True
 
 
-@service_blueprint.route("/", methods=["GET"])
+def generate_serverId():
+    """
+    Generates serverId and keeps track of it in the database(local for now)
+    """
+    serverId = SERVER_IDS[-1] + 1
+    if serverId > MAX_SERVERID:
+        return None
+    SERVER_IDS.append(serverId)
+    return str(serverId)
+
+
+@ service_blueprint.route("/", methods=["GET"])
 def index():
     """
     Main landing page
@@ -40,68 +54,71 @@ def index():
 
     if SESSION_LOGGEDIN not in session:
         session[SESSION_LOGGEDIN] = False
+    elif session[SESSION_LOGGEDIN]:
+        return render_template("home.html")
+
+    if SESSION_SERVERID not in session:
+        session[SESSION_SERVERID] = {}
 
     serverId = request.args.get("serverId", None)
     if serverId is not None:
-        # TODO: check if serverID is valid
-        session[SESSION_SERVERID] = serverId
-    else:
-        session.pop(SESSION_SERVERID, None)
+        # Check if serverID is valid
+        if serverId in SERVER_IDS:
+            session[SESSION_SERVERID].update({serverId: 1})
 
+    session.modified = True
     return render_template("index.html")
 
 
-@service_blueprint.route("/chatroom/<serverId>", methods=["GET"])
-@cross_origin()
+@ service_blueprint.route("/chatroom/<serverId>", methods=["GET"])
+@ cross_origin()
 def chatroom(serverId=0):
     """
-    Landing page for chatoom
+    Landing page for chatroom
     """
     print("Chatroom Called")
 
     if not session.get(SESSION_LOGGEDIN, False):
+        print('Session not logged in')
         return redirect(url_for(".index", serverId=serverId))
 
     if not session.get(SESSION_ID_KEY, False):
+        print('No username')
         return redirect(url_for(".index", serverId=serverId))
 
     if session.get(SESSION_SERVERID, None) != None:
-        if session[SESSION_SERVERID] != serverId:
+        if int(serverId) not in SERVER_IDS:
+            print('ServerId did not match')
             return redirect(url_for(".index", serverId=serverId))
 
-    session[SESSION_SERVERID] = serverId
+    session[SESSION_SERVERID].update({serverId: session[SESSION_ID_KEY]})
+    session.modified = True
     return render_template("chatroom.html")
 
 
-@api_blueprint.route("/createServer", methods=["POST"])
-@cross_origin()
-def createServer():
+@ service_blueprint.route("/home", methods=["GET", "POST"])
+@ cross_origin()
+def home():
     """
-    Internal API for handeling CreateServer Request
+    Landing page for home
     """
-    print("Create server called")
+    print("Home Called")
 
-    data = json.loads(request.data)
-    username = data.get("username", None)
-    password = data.get("password", None)
+    # Check if the session is logged in, if not redirect to index
+    if not session.get(SESSION_LOGGEDIN, False):
+        print('Session not logged in')
+        return redirect(url_for(".index"))
 
-    if username != None and password != None:
-        if auth_login(username, password):
-            # generate server ID
-            serverId = SERVER_ID
-            session[SESSION_SERVERID] = serverId
-            return jsonify({"serverId": serverId, "status": True})
-
-    return jsonify({"serverId": -1, "status": False})
+    return render_template("home.html")
 
 
-@api_blueprint.route("/joinServer", methods=["POST"])
-@cross_origin()
-def joinServer():
+@ api_blueprint.route("/login", methods=["POST"])
+@ cross_origin()
+def login():
     """
-    Internal API for handling JoinServer Request
+    Internal API for handeling Login Request
     """
-    print("Join Server called")
+    print("Login Called")
 
     data = json.loads(request.data)
     username = data.get("username", None)
@@ -112,3 +129,41 @@ def joinServer():
             return jsonify({"status": True})
 
     return jsonify({"status": False})
+
+
+@ api_blueprint.route("/createServer", methods=["POST"])
+@ cross_origin()
+def createServer():
+    """
+    Internal API for handeling CreateServer Request
+    """
+    print("Create server called")
+
+    username = session[SESSION_ID_KEY]
+
+    if username != None:
+        if SESSION_SERVERID not in session:
+            session[SESSION_SERVERID] = {}
+
+        # generate server ID
+        serverId = generate_serverId()
+        session[SESSION_SERVERID].update({serverId: username})
+        session.modified = True
+
+        print(session[SESSION_SERVERID])
+        ADMIN_SERVERID[serverId] = username
+
+        return jsonify({"serverId": serverId, "status": True})
+
+    return jsonify({"serverId": -1, "status": False})
+
+
+@ api_blueprint.route("/joinServer", methods=["POST"])
+@ cross_origin()
+def joinServer():
+    """
+    Internal API for handling JoinServer Request
+    """
+    print("Join Server called")
+
+    return jsonify({"status": True})
