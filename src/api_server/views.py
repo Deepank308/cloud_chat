@@ -17,6 +17,7 @@ api_blueprint = Blueprint("api", __name__, url_prefix="/api")
 SERVER_IDS = [1000]
 MAX_SERVERID = 1005
 ADMIN_SERVERID = {}
+ONLINEUSERS_SERVERID = {}
 
 # user session data
 SESSION_ID_KEY = "username"
@@ -87,12 +88,23 @@ def chatroom(serverId=0):
         return redirect(url_for(".index", serverId=serverId))
 
     if session.get(SESSION_SERVERID, None) != None:
+        # TODO: Check valid active serverId
         if int(serverId) not in SERVER_IDS:
             print('ServerId did not match')
             return redirect(url_for(".index", serverId=serverId))
 
     session[SESSION_SERVERID].update({serverId: session[SESSION_ID_KEY]})
     session.modified = True
+
+    # Add user to online user if he is the not Admin
+    if ADMIN_SERVERID[serverId] != session[SESSION_ID_KEY]:
+        if serverId not in ONLINEUSERS_SERVERID:
+            ONLINEUSERS_SERVERID[serverId] = []
+
+        if session[SESSION_ID_KEY] not in ONLINEUSERS_SERVERID[serverId]:
+            ONLINEUSERS_SERVERID[serverId].append(session[SESSION_ID_KEY])
+        print(ONLINEUSERS_SERVERID[serverId])
+
     return render_template("chatroom.html")
 
 
@@ -137,7 +149,7 @@ def createServer():
     """
     Internal API for handeling CreateServer Request
     """
-    print("Create server called")
+    print("Create server")
 
     username = session[SESSION_ID_KEY]
 
@@ -164,6 +176,25 @@ def joinServer():
     """
     Internal API for handling JoinServer Request
     """
-    print("Join Server called")
+    print("Join Server")
+
+    return jsonify({"status": True})
+
+
+@ api_blueprint.route("/logout", methods=["POST"])
+@ cross_origin()
+def logout():
+    """
+    Internal API for handling Logout Request
+    """
+    print("Logout called")
+
+    # Logout the session
+    session[SESSION_LOGGEDIN] = False
+
+    # Delete the active chatrooms
+    session[SESSION_SERVERID].clear()
+    session[SESSION_ID_KEY] = ''
+    session.modified = True
 
     return jsonify({"status": True})

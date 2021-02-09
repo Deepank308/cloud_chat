@@ -7,16 +7,13 @@ const _baseUrl = `http://${HOST}:${PORT}`;
 const _chatroomUrl = `${_baseUrl}/chatroom`;
 const _apiBase = `${_baseUrl}/api`;
 
-/**
- * TODO: Add Logout
- */
 
 /**
- * Join Server Event Listnser
+ * Join Server Event Listener
  * 
  */
 document.getElementById('join_server').addEventListener('click', function (event) {
-	console.log('Clicked Join serverh');
+	console.log('Clicked Join server');
 
 	/**started here */
 	axios.post(`${_apiBase}/joinServer`)
@@ -88,4 +85,24 @@ document.getElementById('join_server_gotoChatroomButton').addEventListener('clic
 	if (serverId !== '') {
 		location.href = `${_chatroomUrl}/${serverId}`;
 	}
+});
+
+
+/**
+ * Logout Event Listener
+ * 
+ */
+document.getElementById('logout').addEventListener('click', function (event) {
+	console.log('Clicked Logout');
+
+	axios.post(`${_apiBase}/logout`)
+		.then((res) => {
+			let status = res.data.status;
+			console.log(`Status :${status}`);
+			if (!status) {
+				return;
+			}
+
+			location.href = _baseUrl;
+		})
 });
