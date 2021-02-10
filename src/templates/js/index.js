@@ -4,106 +4,37 @@ import axios from "axios";
 const PORT = '5000';
 const HOST = '127.0.0.1';
 const _baseUrl = `http://${HOST}:${PORT}`;
-// const _baseUrl = 'http://c975670c3424.ngrok.io';
-const _chatroomUrl = `${_baseUrl}/chatroom`;
+const _homeUrl = `${_baseUrl}/home`
 const _apiBase = `${_baseUrl}/api`;
 
 
 /**
- * Join Server Event Listnser
+ * Login Event Listener
  * 
  */
-document.getElementById('join_server').addEventListener('click', function (event) {
-	console.log('Clicked Join server');
-
+document.getElementById('login').addEventListener('click', function (event) {
+	console.log('Clicked Login');
 	var loginForm = document.getElementById('login_form');
 	var username = loginForm.elements['username'].value;
 	var password = loginForm.elements['password'].value;
 
 	if (username === '' || password === '') {
-		console.log('Error: Username or password empty!');
-		return;
-	}
-
-	/**started here */
-	var params = { username: username, password: password };
-	axios.post(`${_apiBase}/joinServer`, params)
-		.then((res) => {
-			let status = res.data.status;
-			console.log(`Status :${status}`);
-			if (!status) {
-				return;
-			}
-
-			/* If server ID in the URL, redirect to the chat page */
-			if (/[0-9]+/.test(location.search)) {
-				let serverId = /[0-9]+/.exec(location.search);
-				location.href = `${_chatroomUrl}/${serverId}`;
-			} else {
-				document.getElementById('join_server_invite_container').style.display = 'block';
-				document.getElementById('join_server_invite').value = "";
-			}
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-});
-
-
-/**
- * Create Server Event Listener
- * 
- */
-document.getElementById('create_server').addEventListener('click', function (event) {
-	console.log('Clicked Create server');
-
-	var loginForm = document.getElementById('login_form');
-	var username = loginForm.elements['username'].value;
-	var password = loginForm.elements['password'].value;
-
-	if (username === '' || password === '') {
-		console.log('Error: Username or password empty!');
+		console.log('Error: Username or Password empty!');
 		return;
 	}
 
 	var params = { username: username, password: password };
-	axios.post(`${_apiBase}/createServer`, params)
+	axios.post(`${_apiBase}/login`, params)
 		.then((res) => {
 			let status = res.data.status;
-			console.log(`Status: ${status}`);
+			console.log(`Status : ${status}`);
 			if (!status) {
 				return;
 			}
 
-			let serverId = res.data.serverId;
-			document.getElementById('invite-container').style.display = 'block';
-			document.getElementById('invite').value = `${_chatroomUrl}/${serverId}`;
+			location.href = _homeUrl;
 		})
-		.catch((err) => {
+		.catch((err)=> {
 			console.log(err);
-		});
-});
-
-
-/**
- * Chat Button For Create Server
- * 
- */
-document.getElementById('gotoChatroomButton').addEventListener('click', () => {
-	console.log('Enter Chat clicked');
-	location.href = document.getElementById('invite').value;
-});
-
-
-/**
- * Chat Button For Join Server
- * 
- */
-document.getElementById('join_server_gotoChatroomButton').addEventListener('click', () => {
-	console.log('Enter Chat clicked');
-
-	let serverId = document.getElementById('join_server_invite').value;
-	if (serverId !== '') {
-		location.href = `${_chatroomUrl}/${serverId}`;
-	}
+		})
 });

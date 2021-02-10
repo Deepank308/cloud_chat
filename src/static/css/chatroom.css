@@ -10,8 +10,10 @@
 h1 {
     text-align: center;
     margin-top: 15px;
+    width: 85%;
     color: rgb(0 0 0 / 41%);
     font-family: inherit;
+    display: inline-block;
 }
 
 hr {
@@ -54,11 +56,6 @@ body {
     border-radius: 10px;
     width: 30%;
     float: left;
-}
-
-h1 {
-    text-align: center;
-    margin-top: 15px;
 }
 
 input {
@@ -184,4 +181,11 @@ button:active {
     color: #212529ba;
     text-align: center;
     font-size: 25px;
+}
+
+.chat-header {
+    border: 0px;
+    border-radius: inherit;
+    width: 85%;
+    height: 10%;
 }
